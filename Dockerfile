@@ -1,12 +1,9 @@
 FROM alpine:latest
 
-LABEL org.opencontainers.image.source=https://github.com/normal-coder/openvpn2ss
-LABEL org.opencontainers.image.description="OpenVPN2SS"
-LABEL org.opencontainers.image.licenses=AGPL-3.0
-LABEL maintainer="诺墨 <normal@normalcoder.com>"
 
-RUN apk update && \
-    apk add --no-cache openvpn openssl libssl1.1 && \
+RUN sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirrors.tuna.tsinghua.edu.cn/alpine#g' /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache openvpn openssl curl socat && \
     rm -rf /var/cache/apk/*
 
 RUN set -ex ; \
